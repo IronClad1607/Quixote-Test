@@ -1,0 +1,2 @@
+rootProject.name = "Quixote Test"
+include ':app'
