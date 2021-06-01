@@ -86,4 +86,14 @@
         app:layout_constraintStart_toStartOf="@id/startGuideline"
         tools:ignore="RtlSymmetry" />
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottomGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toTopOf="@id/topGuideline"
+        app:srcCompat="@drawable/ic_arrow" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
