@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import android.widget.Toast
 import com.ironclad.quixotetest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         binding?.imageArrow?.startAnimation(rotate)
 
+        initSingleTapPressAndRelease(rotate)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initSingleTapPressAndRelease(rotate: RotateAnimation) {
         binding?.button1?.setOnTouchListener { v, event ->
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -85,7 +91,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     override fun onDestroy() {
