@@ -1,19 +1,23 @@
 package com.ironclad.quixotetest
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
+import android.view.ViewConfiguration
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.ironclad.quixotetest.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
 
+    private var thisTouchTime: Long = 0
+    private var previousTouchTime: Long = 0
+    private var clickHandled = false
+    private val DOUBLE_CLICK_INTERVAL = ViewConfiguration.getDoubleTapTimeout().toLong()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,16 +35,25 @@ class MainActivity : AppCompatActivity() {
 
         binding?.imageArrow?.startAnimation(rotate)
 
-        initSingleTapPressAndRelease(rotate)
+        initTapPressAndRelease(rotate)
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun initSingleTapPressAndRelease(rotate: RotateAnimation) {
+    private fun initTapPressAndRelease(rotate: RotateAnimation) {
         binding?.button1?.setOnTouchListener { v, event ->
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    binding?.imageArrow?.clearAnimation()
-                    binding?.imageArrow?.rotation = -30f
+                    thisTouchTime = System.currentTimeMillis()
+                    if (thisTouchTime - previousTouchTime <= DOUBLE_CLICK_INTERVAL) {
+                        binding?.imageArrow?.clearAnimation()
+                        binding?.imageArrow?.rotation = 145f
+                        clickHandled = true
+                    } else {
+                        clickHandled = false
+                        binding?.imageArrow?.clearAnimation()
+                        binding?.imageArrow?.rotation = -30f
+                    }
+                    previousTouchTime = thisTouchTime
                 }
 
                 MotionEvent.ACTION_UP -> {
@@ -53,8 +66,17 @@ class MainActivity : AppCompatActivity() {
         binding?.button2?.setOnTouchListener { v, event ->
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    binding?.imageArrow?.clearAnimation()
-                    binding?.imageArrow?.rotation = 30f
+                    thisTouchTime = System.currentTimeMillis()
+                    if (thisTouchTime - previousTouchTime <= DOUBLE_CLICK_INTERVAL) {
+                        binding?.imageArrow?.clearAnimation()
+                        binding?.imageArrow?.rotation = -145f
+                        clickHandled = true
+                    } else {
+                        clickHandled = false
+                        binding?.imageArrow?.clearAnimation()
+                        binding?.imageArrow?.rotation = 30f
+                    }
+                    previousTouchTime = thisTouchTime
                 }
 
                 MotionEvent.ACTION_UP -> {
@@ -67,8 +89,17 @@ class MainActivity : AppCompatActivity() {
         binding?.button3?.setOnTouchListener { v, event ->
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    binding?.imageArrow?.clearAnimation()
-                    binding?.imageArrow?.rotation = 145f
+                    thisTouchTime = System.currentTimeMillis()
+                    if (thisTouchTime - previousTouchTime <= DOUBLE_CLICK_INTERVAL) {
+                        binding?.imageArrow?.clearAnimation()
+                        binding?.imageArrow?.rotation = -30f
+                        clickHandled = true
+                    } else {
+                        clickHandled = false
+                        binding?.imageArrow?.clearAnimation()
+                        binding?.imageArrow?.rotation = 145f
+                    }
+                    previousTouchTime = thisTouchTime
                 }
 
                 MotionEvent.ACTION_UP -> {
@@ -81,8 +112,17 @@ class MainActivity : AppCompatActivity() {
         binding?.button4?.setOnTouchListener { v, event ->
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    binding?.imageArrow?.clearAnimation()
-                    binding?.imageArrow?.rotation = -145f
+                    thisTouchTime = System.currentTimeMillis()
+                    if (thisTouchTime - previousTouchTime <= DOUBLE_CLICK_INTERVAL) {
+                        binding?.imageArrow?.clearAnimation()
+                        binding?.imageArrow?.rotation = 30f
+                        clickHandled = true
+                    } else {
+                        clickHandled = false
+                        binding?.imageArrow?.clearAnimation()
+                        binding?.imageArrow?.rotation = -145f
+                    }
+                    previousTouchTime = thisTouchTime
                 }
 
                 MotionEvent.ACTION_UP -> {
